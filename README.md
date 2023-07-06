@@ -42,7 +42,3 @@ All work contained in this project was completed as part of the curriculum for A
        alt="ALX Africa Logo"
   >
 </p>
-=======
-# alx-low_level_programming
-alx-low_level_programming
->>>>>>> 00a8d783d931edfaefb0685b6db465cd5c23bc6c
