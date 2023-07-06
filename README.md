@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # Low-Level Programming - Data Structures, Algorithms, Linux/Unix System Programming
 
 This repository contains programs written for the low-level programming and algorithm track at ALX-Africa SE. In these projects, which  occurred throughout the duration of the Year 1 curriculum, I learned about data structures, algorithms, and other low-level programming concepts while working in the C language. The specific list of projects contained follows:
@@ -41,3 +42,7 @@ All work contained in this project was completed as part of the curriculum for A
        alt="ALX Africa Logo"
   >
 </p>
+=======
+# alx-low_level_programming
+alx-low_level_programming
+>>>>>>> 00a8d783d931edfaefb0685b6db465cd5c23bc6c
