@@ -1,38 +1,48 @@
 #include <stdio.h>
 #include <stdlib.h>
+
 /**
- * main - prints the minimum number of coins to make change for an amount.
- * of money.
- * @argc: number of command line arguments.
- * @argv: array that contains the program command line arguments.
- * Return: 0 - success.
+ * main - prints the minimum number of coins to make change for an amount of
+ * money, followed by a new line
+ *
+ * @argc: number of arguments
+ * @argv: array of arguments
+ * Return: 0
  */
 int main(int argc, char *argv[])
 {
-	int cents, ncoins = 0;
+	int i, cents, coins = 0;
+	int denominations[5];
+	int num_denominations;
 
-	if (argc == 1 || argc > 2)
-	{
-		printf("Error\n");
-		return (1);
-	}
+	/* check for correct number of arguments */
+	if (argc != 2)
+		return (printf("Error\n"), 1);
 
+	/* convert cents to integer */
 	cents = atoi(argv[1]);
 
-	while (cents > 0)
+	/* check for negative cents */
+	if (cents < 0)
+		return (printf("0\n"), 0);
+
+	/* initialize denominations array */
+	denominations[0] = 25;
+	denominations[1] = 10;
+	denominations[2] = 5;
+	denominations[3] = 2;
+	denominations[4] = 1;
+
+	/* calculate the size of the array */
+	num_denominations = sizeof(denominations) / sizeof(int);
+
+	/* calculate the number of coins */
+	for (i = 0; i < num_denominations && cents; i++)
 	{
-		if (cents >= 25)
-			cents -= 25;
-		else if (cents >= 10)
-			cents -= 10;
-		else if (cents >= 5)
-			cents -= 5;
-		else if (cents >= 2)
-			cents -= 2;
-		else if (cents >= 1)
-			cents -= 1;
-		ncoins += 1;
+		coins += cents / denominations[i];
+		cents %= denominations[i];
 	}
-	printf("%d\n", ncoins);
+
+	printf("%d\n", coins);
 	return (0);
 }

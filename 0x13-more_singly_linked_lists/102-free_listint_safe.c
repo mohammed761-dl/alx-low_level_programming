@@ -1,72 +1,86 @@
 #include "lists.h"
 
 /**
- * free_listp2 - frees a linked list
- * @head: head of a list.
+ * loop_listint_len - calculates the length of a loop in a linked list
+ * @head: pointer to the head of the linked list
  *
- * Return: no return.
+ * Return: the number of nodes in the loop, or 0 if there is no loop
  */
-void free_listp2(listp_t **head)
+size_t loop_listint_len(const listint_t *head)
 {
-	listp_t *temp;
-	listp_t *curr;
+	const listint_t *slow_ptr, *fast_ptr;
+	size_t length = 1;
 
-	if (head != NULL)
+	/* If the list is empty or has only one node, there is no loop */
+	if (head == NULL || head->next == NULL)
+		return (0);
+
+	slow_ptr = head->next;  /* tortoise pointer */
+	fast_ptr = head->next->next;  /* hare pointer */
+
+	/* Floyd's cycle-finding algorithm */
+	while (fast_ptr != NULL)
 	{
-		curr = *head;
-		while ((temp = curr) != NULL)
+		if (slow_ptr == fast_ptr)
 		{
-			curr = curr->next;
-			free(temp);
+			slow_ptr = head;
+			while (slow_ptr != fast_ptr)
+			{
+				length++;
+				slow_ptr = slow_ptr->next;
+				fast_ptr = fast_ptr->next;
+			}
+
+			slow_ptr = slow_ptr->next;
+			while (slow_ptr != fast_ptr)
+			{
+				length++;
+				slow_ptr = slow_ptr->next;
+			}
+
+			return (length);
 		}
-		*head = NULL;
+
+		slow_ptr = slow_ptr->next;
+		fast_ptr = fast_ptr->next->next;
 	}
+
+	return (0);
 }
 
 /**
- * free_listint_safe - frees a linked list.
- * @h: head of a list.
- *
- * Return: size of the list that was freed.
+ * free_listint_safe - frees a listint_t list
+ * @h: double pointer to the head of the list
+ * Return: the size of the list that was free'd
  */
 size_t free_listint_safe(listint_t **h)
 {
-	size_t nnodes = 0;
-	listp_t *hptr, *new, *add;
-	listint_t *curr;
+	listint_t *tmp;
+	size_t length, i;
 
-	hptr = NULL;
-	while (*h != NULL)
+	length = loop_listint_len(*h);
+
+	if (length == 0)
 	{
-		new = malloc(sizeof(listp_t));
-
-		if (new == NULL)
-			exit(98);
-
-		new->p = (void *)*h;
-		new->next = hptr;
-		hptr = new;
-
-		add = hptr;
-
-		while (add->next != NULL)
+		for (i = 0; *h != NULL; i++)
 		{
-			add = add->next;
-			if (*h == add->p)
-			{
-				*h = NULL;
-				free_listp2(&hptr);
-				return (nnodes);
-			}
+			tmp = *h;
+			*h = (*h)->next;
+			free(tmp);
 		}
-
-		curr = *h;
-		*h = (*h)->next;
-		free(curr);
-		nnodes++;
+	}
+	else
+	{
+		for (i = 0; i < length; i++)
+		{
+			tmp = *h;
+			*h = (*h)->next;
+			free(tmp);
+		}
+		*h = NULL;
 	}
 
-	*h = NULL;
-	free_listp2(&hptr);
-	return (nnodes);
+	h = NULL;
+
+	return (i);
 }

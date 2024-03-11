@@ -1,11 +1,11 @@
 #include "main.h"
 
 /**
- * _puts - prints a string
- * @str: the string
- *
- * Return: the length of the string
+ * _puts - prints string
+ * @str: string
+ * Return: void
  */
+
 void _puts(char *str)
 {
 	int i = 0;
@@ -15,5 +15,6 @@ void _puts(char *str)
 		_putchar(str[i]);
 		i++;
 	}
+
 	_putchar('\n');
 }

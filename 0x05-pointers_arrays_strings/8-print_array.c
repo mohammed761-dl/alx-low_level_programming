@@ -1,20 +1,21 @@
 #include "main.h"
 #include <stdio.h>
+
 /**
- * print_array - prints n element of an array of integers
- * Owned by Bwave
- * @a: int to check
- * @n: int to check
- * Return: 0 is success
+ * print_array - prints n elements of an array of integers.
+ * @a: input array.
+ * @n: input n elements
+ * Return: no return.
  */
 void print_array(int *a, int n)
 {
-	int x;
+	int i = 0;
 
-	for (x = 0; x < n; x++)
-		if (x != n - 1)
-		printf("%d, ", a[x]);
-		else
-			printf("%d", a[x]);
-printf("\n");
+	for (; i < n; i++)
+	{
+		printf("%d", *(a + i));
+		if (i != (n - 1))
+			printf(", ");
+	}
+	printf("\n");
 }
